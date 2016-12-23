@@ -1,0 +1,359 @@
+@charset 'utf-8';
+
+/*------------------------------ reset ------------------------------*/
+html, body {
+	color: #000;
+	margin:0;padding:0;border:0;background:#fff;margin:2px 5px;color:#000;
+}
+
+ul, li,
+h1, h2 ,h3, h4, h5, h6,
+a, span, img,
+form,
+input {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	padding: 2px;
+	font-size: 12px;
+	font-family:  '宋体';
+}
+table {
+	font-size: 12px;
+	font-family: '宋体';
+}
+input, button, textarea, select, option {
+	font-size: 12px;
+	font-family: '宋体';
+}
+img, 
+input, button, textarea, select {
+	vertical-align: middle;
+}
+img {
+	border: 0;
+}
+a {
+	color: #36c;
+	cursor: pointer;
+	text-decoration: none;
+}
+a:hover, a:active, a:visited {
+	color: #36c;
+}
+
+/*------------------------------ tabs ------------------------------*/
+.tabs {
+	padding: 3px 0 0 3px;
+	margin-top:5px;
+	border: 1px solid #aed0ea;
+	background: url(images/tab-bg.png);
+}
+.tabs buttons {
+	display：inline;
+	
+	color: #000;
+	padding: 0 5px;
+}
+.tabs a {
+	display: inline-block;
+	height: 24px;
+	line-height: 24px;
+	padding: 0 5px;
+	text-decoration: none;
+	color: #000;
+}
+.tabs a:hover {
+	background: url(images/tab-bg-on.png);
+	color: #333;
+	border:1px solid #aed0ea;
+	border-bottom:none;
+}
+.tabs a.tabs-selected {
+	background: url(images/tab-bg-on.png);
+	color: #036;
+	font-weight: bold;
+	border:1px solid #aed0ea;
+	border-bottom:none;
+}
+.tabs a img {
+	vertical-align: middle;
+}
+.required {
+	color:red;
+}
+/*------------------------------ button ------------------------------*/
+.toolbar {
+	padding: 3px 0 0 3px;
+	margin-top:5px;
+	border: 1px solid #aed0ea;
+	background: url(images/tab-bg.png);
+}
+.toolbar a, .formtable a {
+	border: 1px solid #aed0ea;
+	display: inline-block;
+	height: 22px;
+	line-height: 22px;
+	padding: 0 5px;
+	cursor: pointer;
+	text-decoration: none;
+	background: url(images/but-bg.png);
+	color:#3f87be;
+	font-weight:bold;
+}
+.toolbar a:hover, .formtable a:hover {
+	border: 1px solid #aed0ea;
+	background: url(images/but-bg-on.png);
+	color:#036;
+	font-weight:bold;
+}
+.toolbar a img, .formtable a img {
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+button1 {
+	display: inline-block;
+	border: 1px solid #aed0ea;
+	line-height: 30px;
+	margin: 0 2px;
+	cursor: pointer;
+	background: #fff;
+	padding: 0 5px;
+	color:#3f87be;
+	font-weight:bold;
+}
+
+button img {
+	margin-right: 5px;
+	margin-bottom:5px;
+	
+}
+
+/*------------------------------ grid ------------------------------*/
+.grid {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-top:5px;
+}
+.grid thead tr {
+}
+.grid thead th {
+	border: 1px solid #808080;
+	line-height: 30px;
+	color:#036;
+	font:bold 16px "Microsoft YaHei", 黑体;
+	padding:2px 5px;
+}
+
+.grid tbody td {
+	border:1px solid #808080;
+	line-height: 22px;
+	padding:2px 5px 5px 5px;
+	text-align: left;
+}
+.grid span {
+	white-space: nowrap;
+}
+.grid-tr-hover {
+	background: #FFC;
+}
+.grid-tr-selected {
+	background: #f9f5f5;
+	color: #F60;
+}
+
+.inputgrid {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-top:5px;
+}
+.inputgrid  th {
+	border: 1px solid #D3D3D3;
+	line-height: 30px;
+	color:#036;
+	font:bold 16px "Microsoft YaHei", 黑体;
+	padding:2px 5px;
+}
+.inputgrid tbody td {
+	line-height: 25px;
+	padding:2px 5px 5px 5px;
+	text-align: left;
+}
+
+.inputgrid .nametd_l {
+    border-left: 1px solid #D3D3D3;
+	line-height: 25px;
+	padding:5px 5px 5px 5px;
+	text-align: left;
+	font-size:14px;
+}
+.inputgrid .nametd_r {
+    border-right: 1px solid #D3D3D3;
+	line-height: 25px;
+	padding:5px 5px 5px 5px;
+	text-align: left;
+	font-size:14px;
+}
+
+.inputgrid .inputtd_l {
+    border-bottom: 2px solid #808080;
+    border-left: 1px solid #D3D3D3;
+	line-height: 25px;
+	padding:2px 5px 5px 20px;
+	text-align: left;
+}
+
+.inputgrid .inputtd {
+    border-bottom: 2px solid #808080;
+	line-height: 25px;
+	padding:2px 5px 5px 20px;
+	text-align: left;
+}
+.inputgrid .inputtd_r {
+    border-bottom: 2px solid #808080;
+    border-right: 1px solid #D3D3D3;
+	line-height: 25px;
+	padding:2px 5px 5px 20px;
+	text-align: left;
+}
+/*------------------------------ desc-grid ------------------------------*/
+.desc-grid {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-top:5px;
+}
+.desc-grid  th {
+	border: 1px solid #aed0ea;
+	line-height: 250px;
+	color:#036;
+	font:bold 14px "Microsoft YaHei", 黑体;
+	padding:2px 5px;
+}
+
+.desc-grid  td {
+	border:1px solid #aed0ea;
+	height: 30px;
+	line-height: 30px;
+	padding:2px 5px;
+}
+.desc-grid span {
+	white-space: nowrap;
+}
+.grid-tr-hover {
+	background: #FFC;
+}
+.grid-tr-selected {
+	background: #f9f5f5;
+	color: #F60;
+}
+
+
+
+/*------------------------------ input ------------------------------*/
+.input_text,
+.input_file,
+.input_textarea,
+.input_select {
+	width:120px;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 3px;
+	border: 1px solid #A9A9A9;
+	font-size:14px;
+}
+
+.input_text_red {
+	width:120px;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 3px;
+	border: 1px solid #A9A9A9;
+	font-size:14px;
+	color:#ff0000;
+	font-weight: bold;
+}
+
+.input_file {
+	width: 120px;
+}
+.input_textarea {
+	width: 300px;
+	height: 120px;
+	resize: none;
+	line-height: 20px;
+	padding: 0 3px;
+	border: 1px solid #A9A9A9;
+}
+.input_select {
+	width: 120px;
+	height: 24px;
+	line-height: 22px;
+}
+/*-----------------------validate-------------------------*/
+label.error {
+	width: 200px;
+	padding-left: 20px;
+	color: red;
+	background: url(images/error.gif) no-repeat 3px 2px;
+	position: absolute;
+	left: 300px;
+	top: 8px;
+}
+label.valid {
+	background: url(images/valid.gif) no-repeat 3px 2px;
+}
+input.error {
+	
+}
+
+/*------------------------------ highlight ------------------------------*/
+.tabs a.highlight {
+	background: #fff;
+	color: red;
+	cursor: text;
+}
+/*------------------------------ default ------------------------------*/
+.column {
+	width: 49%;
+	float: left;
+}
+.tab {
+	margin: 0 5px 5px 0;
+	background: #ffffff;
+}
+.tab-more {
+	text-align: right;
+	padding: 5px;
+}
+.list-item {
+	border-bottom: 1px dashed #aaaaaa;
+	text-align: right;
+}
+.list-item-l {
+	float: left;
+	text-align: left;
+	line-height: 28px;
+	width: 50%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.list-item-r {
+	line-height: 28px;
+	color: green;
+	white-space: nowrap;
+}
+
+.select_button {
+	padding: 0px;
+	border: 1px solid #ccc;
+	background:#f2f2f2;
+	font:bold 14px "Microsoft YaHei", 黑体;
+	width:40px;height:20px;
+}

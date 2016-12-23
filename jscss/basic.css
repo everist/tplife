@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+body{border:0;padding 5px;}
+/* CSS Public */
+a:link, a:visited {color:#36c; text-decoration:none}
+a:hover {color:#f30; text-decoration:underline}
+h1 {font:18px}
+h2 {font-size:24px}
+h3 {font-size:14px}
+h4 {font-size:12px}
+.smallIcon {padding:3px; border:1px solid #d7eaf7}
+a.focus {color:#f00}
+
+/* Header */
+
+/* */
+.txt {width:160px;border:1px solid #ccc;background:#fff;padding:2px 2px 2px 2px;color:#333;font-weight:bold;height:22px;vertical-align: middle;}
+.file_input {width:260px;border:1px solid #ccc;background:#fff;padding:2px 2px 2px 2px;color:#333;font-weight:bold;height:22px;vertical-align: middle;}
+.txt1 {border:1px solid #ccc;}
+
+.button_function {background:#f2f2f2;border:1px solid #ccc;padding:2px 5px;font-weight:bold; height:30px;width:120px;font:bold 15px "Microsoft YaHei", 黑体;}
+
+.tableButton {background:#f2f2f2;border:1px solid #ccc;padding:2px 0px;font:12px "Microsoft YaHei", 黑体;}
+.stable {border:1px solid #ccc;margin:10px 0;}
+.stable .std {padding:0;}
+.HL {font-size:14px;font-weight:bold;color:#f30;}
+.topic {background:#E6E6FA;height:30px;}
+.topic_2 {background:#f7f7f7;height:30px;}
+
+.systitle {background:#fff;font:bold 22px "Microsoft YaHei", 黑体;color:#006cb7; padding:0px 0px 10px 0px;}
+
+.topic h1,
+.topic_2 h1 {font:bold 18px "Microsoft YaHei", 黑体;color:#039;padding:0 0 0 20px;background:url(../images/droparrow.gif) 5px 5px no-repeat;}
+.topic h2,
+.topic_2 h2 {font:bold 16px "Microsoft YaHei", 黑体;color:#039;padding:0 10px 0px 10px;}
+.topic h3,
+.topic_2 h3{font:bold 14px "Microsoft YaHei", 黑体;color:#039;padding:0 10px 0px 10px;background:url(../images/droparrow.gif) 5px 5px no-repeat;padding:0 0 0 22px;}
+
+
+
+
+/*The table at the bottom of the page ...    */
+.bottom-bar {background:#f7f7f7;height:30px;margin:5px 0px 0px 0px;}
+.bottom-bar td{alingn:right;}
+	
+table.location {margin:5px 0;}
+
+.data {border:1px solid #dc8a7c;margin:5px 0;background:#ccc;}
+.data tr {background:#fff;}
+.memo {border:1px solid #999;font-weight:bold;color:#333333;}
+
+.task {clear:both}
+.task0{display:inline}
+.task td { background:#ebf0f6;padding:0 8px;height:24px;}
+.menu {font-weight:bold;}
+.comment {color:#999;font-size:10px;}
+.oper td {background:#f4f4f4;height:28px;}
+.bill {margin:5px 0;border-top:1px dotted #ccc;border-bottom:1px dotted #ccc;padding:5px 20px;}
+.page {padding:5px 0;}
+.error {font-weight:bold;color:#c30;}
+
+.cases {border-top:2px solid #999;margin:5px 0;}
+.cases td {border-bottom:1px solid #eee;padding:5px 10px 5px 0;}
+
+.num {font:bold 12px Tahoma,Arial;color:#666;}
+.tip {font:bold 12px Tahoma,Arial;color:#666;}
+.info {font-weight:bold;}
+.material{color:#36c}
+#pager {padding:5px 0;}
+
+td .condContent {color:#000099;cursor: hand}
+.focusContent {color:#FF0000;}
+.num_periods_td{color:#000099;cursor: pointer}
+.period_num_input{
+    height:20px;width:50px;font-size:12px;font:14px "Microsoft YaHei", 黑体;
+    border: 1px solid #A9A9A9;
+}
+

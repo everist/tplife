@@ -1,0 +1,122 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <title>太平待遇支付测算系统-校验表-V1.0</title>
+    <link rel="stylesheet" type="text/css" href="jscss/basic.css">
+    <link rel="stylesheet" type="text/css" href="jscss/custom.css">
+    <script type="text/javascript" src="jscss/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="jscss/utils.js"></script>
+    <script type="text/javascript" src="jscss/tp-formula.js"></script>
+    <script type="text/javascript" src="jscss/tp-ie8.js"></script>
+    <script type="text/javascript" src="jscss/tp-ie8-input.js"></script>
+    <script type="text/javascript" src="jscss/tp-check.js"></script>
+    <script type="text/javascript" src="jscss/excellentexport.js"></script>
+    
+    <style type="text/css">
+    .w3cbbs { page-break-after:always;}
+    </style>
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="topic" id="topTable3" style="width:90%;" align="center">
+  <tr>
+  
+  <td class="systitle" style="padding-left:5px;width:30%"><img src="jscss/bjkgjt_title_1.jpg" width="94" height="40"/></td>
+    <td class="systitle" style="text-align:center;width:40%">太平待遇支付测算系统-校验表</td>
+    <td class="systitle" style="padding-right:5px;text-align:right;width:30%"><img src="jscss/cntaiping-logo85.jpg" width="141" height="40"/></td>
+  </tr>
+  <tr>
+    <td nowrap colspan="2"><h2 id="resultTitle">本金法测算 &nbsp; </h2></td>
+    
+    <td nowrap align="right" style="padding-top:5px;">
+        <button  download="校验表.xls" style="width:100px;" class="button_function" id="exportExcelButton" onclick="return ExcellentExport.excel(this, 'checkTable2', '校验表');">导出Excel</button>&nbsp;
+        <!--button  style="width:100px;" class="button_function" id="printResult2" onclick="resultPrint(1)">打印</button>&nbsp;
+        <input id="btnPrint" type="button" style="width:100px;" class="button_function" value="打印预览" id="printPreview2" onclick="preview(1)" />
+        &nbsp;-->
+    </td>
+  </tr>
+  <tr>
+    <td style='padding:5px;font:bold 16px "Microsoft YaHei", 黑体;color:#039;' colspan="3">
+    <div style="float: left;" id="displayPeriodNum">分期月数：
+        <input type="checkbox" style="margin-bottom:2px;" value="2" name="periodNum" id="periodNumId2" checked><label for="periodNumId2">2</label>&nbsp;
+        <input type="checkbox" style="margin-bottom:2px;" value="3" name="periodNum" id="periodNumId3" checked><label for="periodNumId3">3</label>&nbsp;
+        <input type="checkbox" style="margin-bottom:2px;" value="6" name="periodNum" id="periodNumId6" checked><label for="periodNumId6">6</label>&nbsp;
+        <input type="checkbox" style="margin-bottom:2px;" value="9" name="periodNum" id="periodNumId9" checked><label for="periodNumId9">9</label>&nbsp;
+        <input type="checkbox" style="margin-bottom:2px;" value="12" name="periodNum" id="periodNumId12" checked><label for="periodNumId12">12</label>&nbsp;
+        <input type="checkbox" style="margin-bottom:2px;" value="24" name="periodNum" id="periodNumId24" checked><label for="periodNumId24">24</label>
+        </div>
+        &nbsp;| &nbsp;
+        可增加新的分期月数： <input id="periodsNum" style='height:25px;width:50px;font-size:14px;font:bold 16px "Microsoft YaHei", 黑体;border: 1px solid #A9A9A9;' value="2" maxlength="3">&nbsp;<button  style="width:50px;height:26px;" class="button_function" id="addPeriod">增加</button>
+    </td>
+    
+  </tr>
+</table>
+<object ID='WebBrowser' WIDTH=0 HEIGHT=0 CLASSID='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>
+<!--startprint1-->
+<div id="dataDiv1">
+    <table class="grid" width="1200" id="checkTable2">
+    <thead id="tableHead">
+        <th nowrap>&nbsp;&nbsp;&nbsp;&nbsp;企&nbsp;业&nbsp;名&nbsp;称&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th nowrap>&nbsp;&nbsp;姓名&nbsp;&nbsp;</th>
+        <th nowrap>证件类型</th>
+        <th nowrap>&nbsp;&nbsp;证&nbsp;件&nbsp;号&nbsp;码&nbsp;&nbsp;</th>
+        <th nowrap>上一年度<br>月平均工资</th>
+        <th nowrap>参加年金<br>首笔缴费时间</th>
+        <th nowrap>正式退休时间</th>
+        <th nowrap>年金实际缴费月数<br>（截止到退休之月）</th>
+        <th nowrap>年金中人补偿月数<br>（120-实际缴费月数）</th>
+        <th nowrap>年金中人补偿金额<br>（缴费基数*8.33%*补偿月）</th>
+        <th nowrap>年金个人账户金额</th>
+        <th nowrap>年金合计金额</th><th nowrap>2013年底税后缴费</th>
+        <th nowrap>2014年后税后缴费</th>
+        <th nowrap>总本金</th>
+        <th nowrap>完税比例</th>
+        <th nowrap>未完税比例</th>
+        <th nowrap>一次性应纳税所得额</th>
+        <th nowrap>一次性应缴纳<br>个人所得税</th>
+        <th nowrap>（分2个月）<br>每月应纳税所得额</th>
+        <th nowrap>（分2个月）<br>每月应纳税额</th>
+        <th nowrap>（分2个月)<br>应缴纳个人所得税</th>
+        
+        <th nowrap>（分3个月）<br>每月应纳税所得额</th>
+        <th nowrap>（分3个月）<br>每月应纳税额</th>
+        <th nowrap>（分3个月)<br>应缴纳个人所得税</th>
+        
+        <th nowrap>（分6个月）<br>每月应纳税所得额</th>
+        <th nowrap>（分6个月）<br>每月应纳税额</th>
+        <th nowrap>（分6个月）<br>应缴纳个人所得税</th>
+        
+        <th nowrap>（分9个月）<br>每月应纳税所得额</th>
+        <th nowrap>（分9个月）<br>每月应纳税额</th>
+        <th nowrap>（分9个月）<br>应缴纳个人所得税</th>
+        
+        <th nowrap>（分12个月）<br>每月应纳税所得额</th>
+        <th nowrap>（分12个月）<br>每月应纳税额</th>
+        <th nowrap>（分12个月）<br>应缴纳个人所得税</th>
+        
+        <th nowrap>（分24个月）<br>每月应纳税所得额</th>
+        <th nowrap>（分24个月）<br>每月应纳税额</th>
+        <th nowrap>（分24个月）<br>应缴纳个人所得税</th>
+    </thead>
+    <tbody id="tableBody" style="font-size:12px;"></tbody>
+    </table>
+</div>
+
+
+
+<!--endprint0-->
+</body>
+</html>
+<script LANGUAGE="JavaScript" >
+$(document).ready(function(){
+    parentDocument = window.opener;
+    getDataFromParentPage();
+})
+</script>
