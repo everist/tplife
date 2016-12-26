@@ -578,9 +578,6 @@ function CreateExcel()
    }*/
 }
 
-function CloseExcel(){
-    
-}
 
 function hangTableTr() {
     var scroll_bar = $("#inputTable"); //表格的id
@@ -607,4 +604,8 @@ function hangTableTr() {
             $('#shelter').hide();
         }
     });
+    
+    
 }
+
+

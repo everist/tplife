@@ -139,10 +139,10 @@ function getResultTableContent(input_data, excel_data, islast, index) {
     // alert(excel_data_taxed_pay_2013);
     
     // 分期支付完税比例-W
-    var excel_period_tax_rate = excel_data[40];
+    var excel_period_tax_rate = excel_data[40] ? excel_data[40] : "0";
+    
     // 分期支付未完税比例
     var res_period_no_tax_rate = calPeriodPayNoTaxRate(excel_period_tax_rate) + '%';
-    
     
     var input_data_compensate_fee = input_data[6];
     
