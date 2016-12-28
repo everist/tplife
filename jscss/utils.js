@@ -193,30 +193,51 @@ function getBrowserType() {
     return "";
 }
 
-function exportExcel(obj, tableId, fileName) {
+// 导出校验表到Excel
+function exportCheckTableToExcel(obj, tableId, fileName) {
     var t = getBrowserType();
     if(t == 'ie') {
-        var x= document.getElementById(tableId).rows;
+        var x= document.getElementById("tableHead").rows;
+        
         var xls = new ActiveXObject("Excel.Application");
         xls.visible = true;
         var workbook = xls.Workbooks.Add();
         var sheet    = workbook.ActiveSheet;
     
-        // xls.Workbooks.Add
+        // 标题栏
+        var y = x[0].cells;
+        sheet.Rows(1).Font.Size = 14;
+        sheet.Rows(1).Font.Name = "黑体";
+        sheet.Rows(1).WrapText=true;
         
+        sheet.Columns("A").ColumnWidth = 26;
+        sheet.Columns("C").ColumnWidth = 12;
+        sheet.Columns("D").ColumnWidth = 20;
+        sheet.Columns("D:G").ColumnWidth  = 18;
+        sheet.Columns("H:I").ColumnWidth  = 27;
+        sheet.Columns("J").ColumnWidth    = 33;
+        sheet.Columns("K:S").ColumnWidth  = 18;
+        sheet.Columns("T:BZ").ColumnWidth = 22;
+        sheet.Rows(1).HorizontalAlignment = 3;
+        
+        for (j = 0; j < y.length; j++) {
+            sheet.Cells(1, j+1).Value = y[j].innerText;
+        }
+    
+        x= document.getElementById("tableBody").rows;
         for (i = 0; i < x.length; i++) {
-            var y = x[i].cells;
+            sheet.Rows(i+2).HorizontalAlignment = 2;
+            y = x[i].cells;
             for (j = 0; j < y.length; j++) {
                 if(j == 3) {
-                    sheet.Cells( i+1, j+1).NumberFormat = "@";
+                    sheet.Cells( i+2, j+1).NumberFormat = "@";
                 }
-                sheet.Cells( i+1, j+1).Value = y[j].innerText;
+                sheet.Cells( i+2, j+1).Value = y[j].innerText;
             }
         }
         sheet.Visible = true;
         sheet.UserControl = true;
         CollectGarbage();
-        // return xls;
     } else {
         ExcellentExport.excel(obj, tableId, fileName);
     }

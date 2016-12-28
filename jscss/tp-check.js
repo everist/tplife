@@ -95,7 +95,7 @@ $(document).ready(function(){
 });
 
 function createTableHead() {
-    var headContent = '<th nowrap>&nbsp;&nbsp;&nbsp;&nbsp;企&nbsp;业&nbsp;名&nbsp;称&nbsp;&nbsp;&nbsp;&nbsp;</th>'+
+    var headContent = '<tr><th nowrap>&nbsp;&nbsp;&nbsp;&nbsp;企&nbsp;业&nbsp;名&nbsp;称&nbsp;&nbsp;&nbsp;&nbsp;</th>'+
         '<th nowrap>&nbsp;&nbsp;姓名&nbsp;&nbsp;</th>'+
         '<th nowrap>证件类型</th>'+
         '<th nowrap>&nbsp;&nbsp;证&nbsp;件&nbsp;号&nbsp;码&nbsp;&nbsp;</th>'+
@@ -121,7 +121,7 @@ function createTableHead() {
         headContent += '<th nowrap>（分'+periodNumList[i]+'个月)<br>应缴纳个人所得税</th>';
     }
     
-    $('#tableHead').html(headContent);
+    $('#tableHead').html(headContent + '</tr>');
 }
 
 function getDataFromParentPage() {

@@ -36,7 +36,7 @@
     <td nowrap colspan="2"><h2 id="resultTitle">本金法测算 &nbsp; </h2></td>
     
     <td nowrap align="right" style="padding-top:5px;">
-        <button  download="校验表.xls" style="width:100px;" class="button_function" id="exportExcelButton" onclick="exportExcel(this, 'checkTable2', '校验表');">导出Excel</button>&nbsp;
+        <button  download="校验表.xls" style="width:100px;" class="button_function" id="exportExcelButton" onclick="exportCheckTableToExcel(this, 'checkTable2', '校验表');">导出Excel</button>&nbsp;
         <!--button  style="width:100px;" class="button_function" id="printResult2" onclick="resultPrint(1)">打印</button>&nbsp;
         <input id="btnPrint" type="button" style="width:100px;" class="button_function" value="打印预览" id="printPreview2" onclick="preview(1)" />
         &nbsp;-->
@@ -62,7 +62,7 @@
 <!--startprint1-->
 <div id="dataDiv1">
     <table class="grid" width="1200" id="checkTable2">
-    <thead id="tableHead">
+    <thead id="tableHead"><tr>
         <th nowrap>&nbsp;&nbsp;&nbsp;&nbsp;企&nbsp;业&nbsp;名&nbsp;称&nbsp;&nbsp;&nbsp;&nbsp;</th>
         <th nowrap>&nbsp;&nbsp;姓名&nbsp;&nbsp;</th>
         <th nowrap>证件类型</th>
@@ -104,6 +104,7 @@
         <th nowrap>（分24个月）<br>每月应纳税所得额</th>
         <th nowrap>（分24个月）<br>每月应纳税额</th>
         <th nowrap>（分24个月）<br>应缴纳个人所得税</th>
+        </tr>
     </thead>
     <tbody id="tableBody" style="font-size:12px;"></tbody>
     </table>
