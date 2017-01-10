@@ -11,8 +11,8 @@
     <script type="text/javascript" src="jscss/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="jscss/utils.js"></script>
     <script type="text/javascript" src="jscss/tp-formula.js"></script>
-    <script type="text/javascript" src="jscss/tp-ie8.js"></script>
-    <script type="text/javascript" src="jscss/tp-ie8-input.js"></script>
+    <script type="text/javascript" src="jscss/tp.js"></script>
+    <script type="text/javascript" src="jscss/tp-input.js"></script>
     <script type="text/javascript" src="jscss/tp-check.js"></script>
     <script type="text/javascript" src="jscss/excellentexport.js"></script>
     
@@ -117,6 +117,9 @@
 </html>
 <script LANGUAGE="JavaScript" >
 $(document).ready(function(){
+    // alert('name:' + localStorage.myName + '\rsite:' + localStorage['mySite']);
+    var t = getBrowserType();
+    
     parentDocument = window.opener;
     getDataFromParentPage();
 })

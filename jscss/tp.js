@@ -4,7 +4,7 @@ var selectedEmpId = [];
 var reCalculate = false;
 var allowNull  = true;
 var havingNull = false;
-
+var X = null;
 $(document).ready(function(){
     // 第一页进入第二页，选择要计算的员工
     $('#inputNext').on('click', function() {
@@ -173,6 +173,20 @@ function importXLS() {
     }
     excelData = [];
     
+    $('#tableHead').empty();
+    $('#tableBody').empty();
+    
+    // 判断使用的浏览器，是IE还是其他的内核
+    var t = getBrowserType();
+    if(t == 'ie') {
+        importXLSByIE(filename);
+    } else {
+        importXLSByNoIE(filename);
+    }
+}
+
+// 通过IE导入excel
+function importXLSByIE(filename) {
     objCon = new ActiveXObject("ADODB.Connection");
     objCon.Provider = "Microsoft.Jet.OLEDB.4.0";
     objCon.ConnectionString = "Data Source=" + filename + ";Extended Properties=Excel 8.0;";
@@ -181,9 +195,6 @@ function importXLS() {
     var strQuery;
     
     var rowData = '', headRowData = '';
-    $('#tableHead').empty();
-    $('#tableBody').empty();
-    
     var strSheetName = "Sheet1$";
     var rsTemp =   new ActiveXObject("ADODB.Recordset");
     rsTemp = objCon.OpenSchema(20);
@@ -253,6 +264,98 @@ function importXLS() {
     objCon.Close;
     objCon =null;
     rsExcel = null;
+}
+
+// 非IE导入Excel
+function importXLSByNoIE(filename) {
+    X = XLS;
+    var name = filename;
+    var f = $("#excelFileInput")[0].files[0];
+    var reader;
+    if(f) {
+        reader = new FileReader();
+        reader.onload = function(e) {
+            var data = e.target.result;
+            xw_xfer(data, process_wb);
+        };
+        
+        reader.readAsBinaryString(f);
+    }
+}
+
+function ab2str(data) {
+    var o = "", l = 0, w = 10240;
+    for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint16Array(data.slice(l*w,l*w+w)));
+    o+=String.fromCharCode.apply(null, new Uint16Array(data.slice(l*w)));
+    return o;
+}
+
+function s2ab2(s) {
+    var b = new ArrayBuffer(s.length*2), v = new Uint16Array(b);
+    for (var i=0; i != s.length; ++i) v[i] = s.charCodeAt(i);
+    return [v, b];
+}
+
+function xw_xfer(data, cb) {
+    var v = XLS.read(data, {type: 'binary'});
+    
+    var res = {t:"xls", d:JSON.stringify(v)};
+    var r = s2ab2(res.d)[1];
+    
+    var xx=ab2str(r).replace(/\n/g,"\\n").replace(/\r/g,"\\r");
+    cb(JSON.parse(xx));
+}
+
+function process_wb(wb) {
+    XLS.SSF.load_table(wb.SSF);
+    var output = "";
+    var result = [];
+    // wb.SheetNames.forEach(function(sheetName) {
+    var rows = X.utils.sheet_to_row_object_array(wb.Sheets[wb.SheetNames[0]]);
+    var rowData = '', headRowData = '';
+    var rownum = 0;
+    var cellValue = '';
+    
+    if(rows.length > 0) {
+        var rowArray = {};
+        var num = 0;
+        for(var k in rows[0]) {
+            headRowData += '<th nowrap>'+k+'</th>';
+            cellValue = (rows[0][k] == null ? '' : rows[0][k]);
+            
+            rowData += '<td nowrap style="height:30px;">'+(cellValue == null ? '' : cellValue)+'</td>';
+            // rowData += '<td>'+cellValue+'</td>';
+            rowArray[num++] = cellValue;
+            
+        }
+        excelData.push(rowArray);
+        
+        $('#tableHead').append('<tr>'+headRowData+'</tr>');
+        $('#tableBody').append('<tr>'+rowData+'</tr>');
+        
+        var rownum = 0;
+        for(var i=1, n=rows.length; i<n; i++) {
+            var bgcolor = rownum%2 == 0 ? "background:#E6E6FA;" : "";
+            rowData = '';
+            num = 0;
+            rowArray = {};
+            
+            for(var k in rows[i]) {
+                // headRowData += '<th nowrap>'+k+'</th>';
+                cellValue = (rows[i][k] == null ? '' : rows[i][k]);
+                rowData += '<td nowrap style="height:30px;'+bgcolor+'">'+(cellValue == null ? '' : cellValue)+'</td>';
+                
+                rowArray[num++] = cellValue;
+            }
+            
+            // excelData.push(rowArray);
+            rownum++;
+            $('#tableBody').append('<tr>'+rowData+'</tr>');
+            excelData.push(rowArray);
+        }
+        
+        $('#importExcelPreview').html('导入数据预览，共 '+(rownum+1)+' 条记录');
+    }
 }
 
 function initSelect() {
@@ -604,8 +707,6 @@ function hangTableTr() {
             $('#shelter').hide();
         }
     });
-    
-    
 }
 
 
