@@ -19,6 +19,7 @@ a.focus {color:#f00}
 .txt1 {border:1px solid #ccc;}
 
 .button_function {background:#f2f2f2;border:1px solid #ccc;padding:2px 5px;font-weight:bold; height:30px;width:120px;font:bold 15px "Microsoft YaHei", 黑体;}
+.button_function_href {background:#f2f2f2;border:1px solid #ccc;display:block;padding:5px 0px 1px 0px;width:100px;font-weight:bold; height:25px;text-decoration:none;text-align:center;font:bold 15px "Microsoft YaHei", 黑体;}
 
 .tableButton {background:#f2f2f2;border:1px solid #ccc;padding:2px 0px;font:12px "Microsoft YaHei", 黑体;}
 .stable {border:1px solid #ccc;margin:10px 0;}

@@ -183,6 +183,7 @@ function importXLS() {
     } else {
         importXLSByNoIE(filename);
     }
+    CollectGarbage();
 }
 
 // 通过IE导入excel

@@ -24,6 +24,7 @@
     <script type="text/javascript">
         // alert(validateDateExt('20101010'));
         // alert('2010-1010'.indexOf("-"));
+        var browserType = getBrowserType();
     </script>
     
 </head>
@@ -66,15 +67,24 @@
   <tr>
     <td nowrap colspan="2"><h2 id="resultTitle">3）计算结果-本金法测算 &nbsp; </h2></td>
     
-    <td colspan="5" nowrap align="right" style="padding-top:5px;">
+    <td colspan="5" nowrap align="right" style="padding-top:5px;white-space:nowrap;">
         <button onclick="return false;" style="width:95px;" class="button_function" id="reImportExcel">重新导入</button>&nbsp;
         <button onclick="return false;" style="width:95px;" class="button_function" id="returnSelect">返回上一页</button>&nbsp;
+        
         <button onclick="return false;" style="width:95px;" class="button_function" id="createCheckTable" title="点击生成校验表格">生成校验表</button>&nbsp;
-        <button  download="测算结果.xls" style="width:95px;" class="button_function" id="exportExcelButton1" onclick="exportCalTable(this, 'calResultTable', '校验表');">导出Excel</button>&nbsp;
+        <script LANGUAGE="JavaScript" >
+        if(browserType == 'ie') {
+            document.write('<button  download="测算结果.xls" style="width:95px;" class="button_function" id="exportExcelButton1" onclick="exportCalTable(this, \'calResultTable\', \'校验表\');">导出Excel</button>&nbsp;');
+        }
+        </script>
+        
         <button  style="width:95px;" class="button_function" id="printResult" onclick="resultPrint(1)">打印</button>&nbsp;
         <input id="btnPrint" type="button" style="width:95px;" class="button_function" value="打印预览" id="printPreview" onclick="preview(1)" />
-        &nbsp;
-        
+        <script LANGUAGE="JavaScript" >
+            if(browserType != 'ie') {
+                document.write('<a download="测算结果.xls" href="#" style="height:24px;display:inline-block;line-height:24px;width:90px;padding:0px 0px 3px;text-decoration:none;" class="button_function_href" onclick="return exportCalTable(this, \'calResultTable\', \'测算结果\');">&nbsp;导出Excel&nbsp;</a>');
+            }
+        </script>
     </td>
   </tr>
   <tr>

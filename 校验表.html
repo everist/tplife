@@ -20,6 +20,7 @@
     .w3cbbs { page-break-after:always;}
     </style>
     <script type="text/javascript">
+        var browserType = getBrowserType();
     </script>
 </head>
 
@@ -35,8 +36,15 @@
   <tr>
     <td nowrap colspan="2"><h2 id="resultTitle">本金法测算 &nbsp; </h2></td>
     
-    <td nowrap align="right" style="padding-top:5px;">
-        <button  download="校验表.xls" style="width:100px;" class="button_function" id="exportExcelButton" onclick="exportCheckTableToExcel(this, 'checkTable2', '校验表');">导出Excel</button>&nbsp;
+    <td nowrap align="right" style="padding:5px 5px 0px 0px;">
+        <script LANGUAGE="JavaScript" >
+        if(browserType == 'ie') {
+            document.write('<button  download="校验表.xls" style="width:100px;" class="button_function" id="exportExcelButton" onclick="return exportCheckTableToExcel(this, \'checkTable2\', \'test\');">导出Excel</button>&nbsp;');
+        } else {
+            document.write('<a download="校验表.xls" href="#" class="button_function_href" onclick="return exportCheckTableToExcel(this, \'checkTable2\', \'校验表\');">导出Excel</a>&nbsp;&nbsp;');
+        }
+        </script>
+        
         <!--button  style="width:100px;" class="button_function" id="printResult2" onclick="resultPrint(1)">打印</button>&nbsp;
         <input id="btnPrint" type="button" style="width:100px;" class="button_function" value="打印预览" id="printPreview2" onclick="preview(1)" />
         &nbsp;-->

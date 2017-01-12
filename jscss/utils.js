@@ -173,7 +173,7 @@ function addFloat(f1, f2) {
     }
 }
 
-
+// 获取浏览器类型
 function getBrowserType() {
      var Sys = {};
         var ua = navigator.userAgent.toLowerCase();
@@ -195,6 +195,7 @@ function getBrowserType() {
 
 // 导出校验表到Excel
 function exportCheckTableToExcel(obj, tableId, fileName) {
+    
     var t = getBrowserType();
     if(t == 'ie') {
         var x= document.getElementById("tableHead").rows;
@@ -238,103 +239,110 @@ function exportCheckTableToExcel(obj, tableId, fileName) {
         sheet.Visible = true;
         sheet.UserControl = true;
         CollectGarbage();
+        return false;
     } else {
-        ExcellentExport.excel(obj, tableId, fileName);
+        return ExcellentExport.excel(obj, tableId, fileName);
     }
 }
 
 // 导出测算表的数据
 // 测算表是多个表格数据，需要对每一个表格进行遍历
 function exportCalTable(obj, tableId, fileName) {
-    var val = document.getElementById("employeeNum").value;
-    var num = parseInt(val);
-    
-    var xls = new ActiveXObject("Excel.Application");
-    xls.visible = true;
-    // xls.Workbooks.Add;
-    var workbook = xls.Workbooks.Add();
-    var sheet    = workbook.ActiveSheet;
-    
-    sheet.Columns("A").ColumnWidth = 25;
-    sheet.Columns("B").ColumnWidth = 22;
-    sheet.Columns("C").ColumnWidth = 19;
-    sheet.Columns("D").ColumnWidth = 19;
-    // ExcelSheet.ActiveSheet.Cells(row,col).HorizontalAlignment = 3; //水平对齐方式枚举* (1-常规，2-靠左，3-居中，4-靠右，5-填充 6-两端对齐，7-跨列居中，8-分散对齐)
-    var step = 1, baseRow = 1;
-    
-    for(var k = 0; k<num; k++) {
-        //alert(k);
+    var t = getBrowserType();
+    if(t == 'ie') {
+        var val = document.getElementById("employeeNum").value;
+        var num = parseInt(val);
         
-        var perTableId = 'people0';
-        var x = document.getElementById('people' + selectedEmpData[k][0]).rows;
-    
-        baseRow = 1 + k * 30;
-        for (i = 0; i < x.length; i++) {
-            var y = x[i].cells;
-            if(i == 0) {
-                // 标题
-                sheet.Cells(baseRow, 1).HorizontalAlignment = 3;
-                sheet.Cells(baseRow, 1).Font.Size = 18; //设置为10号字*
-                sheet.Cells(baseRow, 1).Font.Name = "黑体"; //设置为黑体*
-                sheet.Rows(baseRow).RowHeight = 35;
-                sheet.Cells(baseRow, 1).Value = y[0].innerText;
-                
-                sheet.Range(sheet.Cells(baseRow,1), sheet.Cells(baseRow, 4)).Merge();
-                continue;
-            }
+        var xls = new ActiveXObject("Excel.Application");
+        xls.visible = true;
+        // xls.Workbooks.Add;
+        var workbook = xls.Workbooks.Add();
+        var sheet    = workbook.ActiveSheet;
+        
+        sheet.Columns("A").ColumnWidth = 25;
+        sheet.Columns("B").ColumnWidth = 22;
+        sheet.Columns("C").ColumnWidth = 19;
+        sheet.Columns("D").ColumnWidth = 19;
+        // ExcelSheet.ActiveSheet.Cells(row,col).HorizontalAlignment = 3; //水平对齐方式枚举* (1-常规，2-靠左，3-居中，4-靠右，5-填充 6-两端对齐，7-跨列居中，8-分散对齐)
+        var step = 1, baseRow = 1;
+        
+        for(var k = 0; k<num; k++) {
+            //alert(k);
             
-            for (j = 0; j < y.length; j++) {
-                step = 1;
-                if(i == 2 && j == 3) {
-                    // 身份证号码
-                    sheet.Cells( i+baseRow, j+1).NumberFormat = "@";
+            var perTableId = 'people0';
+            var x = document.getElementById('people' + selectedEmpData[k][0]).rows;
+        
+            baseRow = 1 + k * 30;
+            for (i = 0; i < x.length; i++) {
+                var y = x[i].cells;
+                if(i == 0) {
+                    // 标题
+                    sheet.Cells(baseRow, 1).HorizontalAlignment = 3;
+                    sheet.Cells(baseRow, 1).Font.Size = 18; //设置为10号字*
+                    sheet.Cells(baseRow, 1).Font.Name = "黑体"; //设置为黑体*
+                    sheet.Rows(baseRow).RowHeight = 35;
+                    sheet.Cells(baseRow, 1).Value = y[0].innerText;
+                    
+                    sheet.Range(sheet.Cells(baseRow,1), sheet.Cells(baseRow, 4)).Merge();
+                    continue;
                 }
-                else if( i >= 3 && i <= 12 ) {
-                    if(j == 1) {
-                        // 基础数据
-                        sheet.Range(sheet.Cells(i+baseRow,2), sheet.Cells(i+baseRow, 4)).Merge();
-                        
-                        if( i == 3 || i == 5 || i == 11 || i == 12) {
-                            // 红色
-                            sheet.Cells( i+baseRow, j+1).Font.ColorIndex  = 3;
+                
+                for (j = 0; j < y.length; j++) {
+                    step = 1;
+                    if(i == 2 && j == 3) {
+                        // 身份证号码
+                        sheet.Cells( i+baseRow, j+1).NumberFormat = "@";
+                    }
+                    else if( i >= 3 && i <= 12 ) {
+                        if(j == 1) {
+                            // 基础数据
+                            sheet.Range(sheet.Cells(i+baseRow,2), sheet.Cells(i+baseRow, 4)).Merge();
+                            
+                            if( i == 3 || i == 5 || i == 11 || i == 12) {
+                                // 红色
+                                sheet.Cells( i+baseRow, j+1).Font.ColorIndex  = 3;
+                            }
                         }
                     }
-                }
-                else if( i == 13 ) {
-                    // 领取方式选择
-                    sheet.Range(sheet.Cells(i + baseRow,1), sheet.Cells(i + baseRow, 4)).Merge();
-                }
-                else if( i == 14 ) {
-                    if(j <= 1) {
-                        sheet.Range(sheet.Cells(i + baseRow, j+1), sheet.Cells(i + baseRow + 3, j+1)).Merge();
+                    else if( i == 13 ) {
+                        // 领取方式选择
+                        sheet.Range(sheet.Cells(i + baseRow,1), sheet.Cells(i + baseRow, 4)).Merge();
                     }
-                }
-                else if( i >= 15 && i <= 17 ) {
-                    step = 3;
-                    if( i == 16 || i == 17 ) {
-                        // 红色
-                        sheet.Cells( i + baseRow, j+step).Font.ColorIndex  = 3;
+                    else if( i == 14 ) {
+                        if(j <= 1) {
+                            sheet.Range(sheet.Cells(i + baseRow, j+1), sheet.Cells(i + baseRow + 3, j+1)).Merge();
+                        }
                     }
-                }
-                else if( i == 18 ) {
-                    if(j <= 1) {
-                        sheet.Range(sheet.Cells(i + baseRow, j+1), sheet.Cells(i + baseRow + 8, j+1)).Merge();
+                    else if( i >= 15 && i <= 17 ) {
+                        step = 3;
+                        if( i == 16 || i == 17 ) {
+                            // 红色
+                            sheet.Cells( i + baseRow, j+step).Font.ColorIndex  = 3;
+                        }
                     }
-                }
-                else if( i >= 19 && i <= 26 ) {
-                    step = 3;
-                    if( i == 24 || i == 26 ) {
-                        // 红色
-                        sheet.Cells( i + baseRow, j+step).Font.ColorIndex  = 3;
+                    else if( i == 18 ) {
+                        if(j <= 1) {
+                            sheet.Range(sheet.Cells(i + baseRow, j+1), sheet.Cells(i + baseRow + 8, j+1)).Merge();
+                        }
                     }
+                    else if( i >= 19 && i <= 26 ) {
+                        step = 3;
+                        if( i == 24 || i == 26 ) {
+                            // 红色
+                            sheet.Cells( i + baseRow, j+step).Font.ColorIndex  = 3;
+                        }
+                    }
+                    sheet.Cells( i + baseRow, j+step).Value = y[j].innerText;
+                    sheet.Cells( i + baseRow, j+step).HorizontalAlignment = 2;
                 }
-                sheet.Cells( i + baseRow, j+step).Value = y[j].innerText;
-                sheet.Cells( i + baseRow, j+step).HorizontalAlignment = 2;
             }
         }
+        
+        xls.Visible = true;
+        xls.UserControl = true;
+        CollectGarbage();
+        return false;
+    } else {
+        return ExcellentExport.excel(obj, tableId, fileName);
     }
-    
-    xls.Visible = true;
-    xls.UserControl = true;
-    CollectGarbage();
 }

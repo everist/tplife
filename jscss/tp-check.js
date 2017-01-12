@@ -125,23 +125,18 @@ function createTableHead() {
 }
 
 function getDataFromParentPage() {
+    if(getBrowserType() != 'ie') {
+        return;
+    }
+    
     tableData = [];
     var parent = parentDocument;
     $('#tableBody').html('');
     
     if(parent) {
         var t = getBrowserType();
-        
-        var num = 0;
-        if(t == 'ie') {
-            var obj = parent.document.getElementById("employeeNum");
-            num = obj.value;
-        } else {
-            var num = parent.getElementById("employeeNum");
-        }
-        alert(num);
-        
-        
+        var obj = parent.document.getElementById("employeeNum");
+        var num = obj.value;
         
         if(num != '' && parseInt(num) > 0) {
             num = parseInt(num);

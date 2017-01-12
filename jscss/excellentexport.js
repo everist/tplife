@@ -122,6 +122,7 @@ var ExcellentExport = (function() {
             var b64 = base64(format(template.excel, ctx));
             var filename = anchor.getAttribute('download');
             filename = (filename && filename != '') ? filename : 'export.xls';
+            
             return createDownloadLink(anchor, b64, 'application/vnd.ms-excel',filename);
         },
         /** @export */
