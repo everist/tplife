@@ -129,7 +129,6 @@ function calculatePayMonth(firstData, retireDate) {
 // 生成结果表格
 // 本金法测算
 function getResultTableContent(input_data, excel_data, islast, index) {
-    
     var num_periods = parseInt($("#periodsNum").val());
     
     // 个人账户余额(归属前资产余额)
@@ -351,4 +350,43 @@ function changePeriodValue(index, num_periods, input_data, excel_data) {
     
     // 每月税后领取金额
     $('#res_get_fee_after_tax_period'+index).html(res_get_fee_after_tax_period);
+}
+
+// 生成校验表的数据
+function getCheckTableData() {
+    var tableData = [];
+    var num = $('#employeeNum').val();
+            
+    if(num != '' && parseInt(num) > 0) {
+        num = parseInt(num);
+    
+        for(var i=0; i<num; i++) {
+            var rowData = {
+                "enterprise"    : $("#enterprise"+i).text(),  // 企业名称
+                "emp_name"      : $("#emp_name"+i).text(),    // 姓名
+                "cert_type"     : $("#cert_type"+i).text(),   // 证件类型
+                "cert_no"       : $("#cert_no"+i).text(),     // 证件号码
+                "avg_salary_lastyear"   : $("#avg_salary_lastyear"+i).text(), // 上一年度月平均工资
+                "first_paytime"         : $("#first_paytime"+i).text(),   // 参加年金首笔缴费时间
+                "retire_time"           : $("#retire_time"+i).text(),     // 正式退休时间
+                "pay_month"             : $("#pay_month"+i).text(),       // 年金实际缴费月数（截止到退休之月）
+                "compensate_month"      : $("#compensate_month"+i).text(),    // 年金中人补偿月数（120-实际缴费月数）
+                "compensate_fee"        : $("#compensate_fee"+i).text(),      // 年金中人补偿金额（缴费基数*8.33%*补偿月）
+                "data_balnace"          : $("#data_balnace"+i).text(),        // 年金个人账户金额
+                "annuity_sum"           : $("#annuity_sum"+i).text(),         // 年金合计金额 = 年金中人补偿金额 + 年金个人账户金额
+                "data_taxed_pay_2013"   : $("#data_taxed_pay_2013"+i).val(),
+                "data_taxed_pay_2014"   : $("#data_taxed_pay_2014"+i).val(),
+                "total_principal_fee"   : $("#total_principal_fee"+i).text(),
+                "period_tax_rate"       : $("#period_tax_rate"+i).text(),
+                "res_period_no_tax_rate": $("#res_period_no_tax_rate"+i).text(), // 未完税比例
+                "taxable_income"        : $("#taxable_income"+i).text(),  // 一次性应纳税所得额 = 年金合计金额 - 2013年底税后缴费 - 2014年后税后缴费
+                "tax_fee"               : $("#tax_fee"+i).text(),         // 一次性应缴纳个人所得税
+                "emp_name"              : $("#emp_name"+i).text(),
+                "emp_name"              : $("#emp_name"+i).text(),
+            };
+            tableData.push(rowData);
+        }
+    }
+    
+    return tableData;
 }

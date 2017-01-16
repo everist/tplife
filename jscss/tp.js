@@ -61,6 +61,13 @@ $(document).ready(function(){
     
     
     $('#createCheckTable').on('click', function() {
+        // 如果是非IE，需要把数据存入到 本地存储中，供校验表.html使用
+        if(browserType != 'ie') {
+            localStorage.clear();
+            
+            localStorage['checkdata']=JSON.stringify(getCheckTableData());
+        }
+        
         window.open('校验表.html');
     });
     
@@ -183,7 +190,7 @@ function importXLS() {
     } else {
         importXLSByNoIE(filename);
     }
-    CollectGarbage();
+    // CollectGarbage();
 }
 
 // 通过IE导入excel
@@ -312,17 +319,27 @@ function process_wb(wb) {
     var output = "";
     var result = [];
     // wb.SheetNames.forEach(function(sheetName) {
-    var rows = X.utils.sheet_to_row_object_array(wb.Sheets[wb.SheetNames[0]]);
+    // var rows = X.utils.sheet_to_row_object_array(wb.Sheets[wb.SheetNames[0]]);
+    var rows = X.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+    var headers = X.excel_header;
+    
     var rowData = '', headRowData = '';
     var rownum = 0;
     var cellValue = '';
+    var colnum = 0;
     
     if(rows.length > 0) {
+        if(headers.length > 0) {
+            colnum = headers.length;
+        }
+        
         var rowArray = {};
         var num = 0;
-        for(var k in rows[0]) {
-            headRowData += '<th nowrap>'+k+'</th>';
-            cellValue = (rows[0][k] == null ? '' : rows[0][k]);
+        
+        for(var i=0; i<colnum; i++) {
+            
+            headRowData += '<th nowrap>'+headers[i]+'</th>';
+            cellValue = (rows[0][headers[i]] == null ? '' : rows[0][headers[i]]);
             
             rowData += '<td nowrap style="height:30px;">'+(cellValue == null ? '' : cellValue)+'</td>';
             // rowData += '<td>'+cellValue+'</td>';
@@ -341,9 +358,9 @@ function process_wb(wb) {
             num = 0;
             rowArray = {};
             
-            for(var k in rows[i]) {
+            for(var k=0; k<colnum; k++) {
                 // headRowData += '<th nowrap>'+k+'</th>';
-                cellValue = (rows[i][k] == null ? '' : rows[i][k]);
+                cellValue = (rows[i][headers[k]] == null ? '' : rows[i][headers[k]]);
                 rowData += '<td nowrap style="height:30px;'+bgcolor+'">'+(cellValue == null ? '' : cellValue)+'</td>';
                 
                 rowArray[num++] = cellValue;
@@ -669,17 +686,7 @@ function checkCalculateInput(index) {
 
 function CreateExcel()
 {
-   /*try{
-       var oXL = new ActiveXObject("Excel.Application"); //创建应该对象
-       // this.oXL.Visible = ExcelVisible;
-       var oWB = oXL .Workbooks.Add();//新建一个Excel工作簿
-       var oSheet = oWB.ActiveSheet;//指定要写入内容的工作表为活动工作表
-       //不显示网格线
-       oXL.ActiveWindow.DisplayGridlines=false;
-   }catch(e){
-        alert("请确认安装了非绿色版本的excel！"+e.description);
-        CloseExcel();
-   }*/
+   
 }
 
 
@@ -709,5 +716,3 @@ function hangTableTr() {
         }
     });
 }
-
-

@@ -7262,6 +7262,7 @@ function sheet_to_json(sheet, opts){
 	for(C = r.s.c; C <= r.e.c; ++C) {
 		cols[C] = encode_col(C);
 		val = sheet[cols[C] + rr];
+		
 		switch(header) {
 			case 1: hdr[C] = C; break;
 			case 2: hdr[C] = cols[C]; break;
@@ -7270,6 +7271,8 @@ function sheet_to_json(sheet, opts){
 				if(val === undefined) continue;
 				hdr[C] = format_cell(val);
 		}
+		
+		XLS.excel_header = hdr;
 	}
 
 	for (R = r.s.r + offset; R <= r.e.r; ++R) {
@@ -7376,6 +7379,9 @@ var utils = {
 	sheet_to_formulae: sheet_to_formulae,
 	sheet_to_row_object_array: sheet_to_row_object_array
 };
+
+XLS.excel_header = [];
+
 XLS.parse_xlscfb = parse_xlscfb;
 XLS.read = xlsread;
 XLS.readFile = readFile;

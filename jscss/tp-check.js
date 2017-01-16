@@ -125,82 +125,157 @@ function createTableHead() {
 }
 
 function getDataFromParentPage() {
-    if(getBrowserType() != 'ie') {
-        return;
-    }
-    
     tableData = [];
-    var parent = parentDocument;
     $('#tableBody').html('');
     
-    if(parent) {
-        var t = getBrowserType();
-        var obj = parent.document.getElementById("employeeNum");
-        var num = obj.value;
-        
-        if(num != '' && parseInt(num) > 0) {
-            num = parseInt(num);
+    if(getBrowserType() == 'ie') {
+        var parent = parentDocument;
+        if(parent) {
+            var obj = parent.document.getElementById("employeeNum");
+            var num = obj.value;
             
-            for(var i=0; i<num; i++) {
+            if(num != '' && parseInt(num) > 0) {
+                num = parseInt(num);
+                
+                for(var i=0; i<num; i++) {
+                    var rowData = [];
+                    // 企业名称
+                    rowData.push(parent.document.getElementById("enterprise"+i).innerText);
+                    // 姓名
+                    rowData.push(parent.document.getElementById("emp_name"+i).innerText);
+                    
+                    // 证件类型
+                    rowData.push(parent.document.getElementById("cert_type"+i).innerText);
+                    
+                    // 证件号码
+                    rowData.push(parent.document.getElementById("cert_no"+i).innerText);
+                    
+                    // 上一年度月平均工资
+                    rowData.push(parent.document.getElementById("avg_salary_lastyear"+i).innerText);
+                    
+                    // 参加年金首笔缴费时间
+                    rowData.push(parent.document.getElementById("first_paytime"+i).innerText);
+                    
+                    // 正式退休时间
+                    rowData.push(parent.document.getElementById("retire_time"+i).innerText);
+                    
+                    // 年金实际缴费月数（截止到退休之月）
+                    rowData.push(parent.document.getElementById("pay_month"+i).innerText);
+                    
+                    // 年金中人补偿月数（120-实际缴费月数）
+                    rowData.push(parent.document.getElementById("compensate_month"+i).innerText);
+                    
+                    // 年金中人补偿金额（缴费基数*8.33%*补偿月）
+                    var compensate_fee = parent.document.getElementById("compensate_fee"+i).innerText;
+                    rowData.push(compensate_fee);
+                    
+                    // 年金个人账户金额
+                    var data_balnace = parent.document.getElementById("data_balnace"+i).innerText;
+                    rowData.push(data_balnace);
+                    
+                    // 年金合计金额 = 年金中人补偿金额 + 年金个人账户金额
+                    var annuity_sum = parent.document.getElementById("annuity_sum"+i).innerText;
+                    rowData.push(annuity_sum);
+                    
+                    rowData.push(parent.document.getElementById("data_taxed_pay_2013"+i).value);
+                    rowData.push(parent.document.getElementById("data_taxed_pay_2014"+i).value);
+                    
+                    // 总本金
+                    rowData.push(parent.document.getElementById("total_principal_fee"+i).innerText);
+                    
+                    // 完税比例
+                    rowData.push(parent.document.getElementById("period_tax_rate"+i).innerText);
+                    
+                    // 未完税比例
+                    var period_no_tax_rate = parent.document.getElementById("res_period_no_tax_rate"+i).innerText;
+                    rowData.push(period_no_tax_rate);
+                    
+                    // 一次性应纳税所得额 = 年金合计金额 - 2013年底税后缴费 - 2014年后税后缴费
+                    rowData.push(parent.document.getElementById("taxable_income"+i).innerText);
+                    
+                    // 一次性应缴纳个人所得税
+                    rowData.push(parent.document.getElementById("tax_fee"+i).innerText);
+                    
+                    for(var k=0, m=periodNumList.length; k<m; k++) {
+                        var pay_tax_income = calPayTaxIncomePeroid(annuity_sum, period_no_tax_rate, periodNumList[k]); 
+                        
+                        var tax_fee = prettify(calTax(pay_tax_income));
+                        var tax_fee_sum = prettify(parseFloat(tax_fee) * periodNumList[k]);
+                        
+                        rowData.push(pay_tax_income);
+                        rowData.push(tax_fee);
+                        rowData.push(tax_fee_sum);
+                    }
+                    
+                    tableData.push(rowData);
+                    
+                }
+                createTableContent();
+            }
+        }
+    } else {
+        var checkdata = JSON.parse(localStorage['checkdata']);
+        
+        if(checkdata && checkdata.length > 0) {
+            for(var i=0, n=checkdata.length; i<n; i++) {
+                var item = checkdata[i];
+                
+                // 非IE部分，采用 localStorage 方式
                 var rowData = [];
+                
+                
                 // 企业名称
-                rowData.push(parent.document.getElementById("enterprise"+i).innerText);
-                // 姓名
-                rowData.push(parent.document.getElementById("emp_name"+i).innerText);
+                rowData.push(item["enterprise"]);
+                // 姓名 emp_name
+                rowData.push(item["emp_name"]);
                 
                 // 证件类型
-                rowData.push(parent.document.getElementById("cert_type"+i).innerText);
+                rowData.push(item["cert_type"]);
                 
                 // 证件号码
-                rowData.push(parent.document.getElementById("cert_no"+i).innerText);
+                rowData.push(item["cert_no"]);
                 
                 // 上一年度月平均工资
-                rowData.push(parent.document.getElementById("avg_salary_lastyear"+i).innerText);
+                rowData.push(item["avg_salary_lastyear"]);
                 
                 // 参加年金首笔缴费时间
-                rowData.push(parent.document.getElementById("first_paytime"+i).innerText);
+                rowData.push(item["first_paytime"]);
                 
                 // 正式退休时间
-                rowData.push(parent.document.getElementById("retire_time"+i).innerText);
+                rowData.push(item["retire_time"]);
                 
                 // 年金实际缴费月数（截止到退休之月）
-                rowData.push(parent.document.getElementById("pay_month"+i).innerText);
+                rowData.push(item["pay_month"]);
                 
                 // 年金中人补偿月数（120-实际缴费月数）
-                rowData.push(parent.document.getElementById("compensate_month"+i).innerText);
+                rowData.push(item["compensate_month"]);
                 
                 // 年金中人补偿金额（缴费基数*8.33%*补偿月）
-                var compensate_fee = parent.document.getElementById("compensate_fee"+i).innerText;
+                var compensate_fee = item["compensate_fee"];
                 rowData.push(compensate_fee);
                 
                 // 年金个人账户金额
-                var data_balnace = parent.document.getElementById("data_balnace"+i).innerText;
+                var data_balnace = item["data_balnace"];
                 rowData.push(data_balnace);
-                
+                    
                 // 年金合计金额 = 年金中人补偿金额 + 年金个人账户金额
-                var annuity_sum = parent.document.getElementById("annuity_sum"+i).innerText;
+                var annuity_sum = item["annuity_sum"];
                 rowData.push(annuity_sum);
                 
-                rowData.push(parent.document.getElementById("data_taxed_pay_2013"+i).value);
-                rowData.push(parent.document.getElementById("data_taxed_pay_2014"+i).value);
+                rowData.push(item["data_taxed_pay_2013"]);
+                rowData.push(item["data_taxed_pay_2014"]);
                 
-                // 总本金
-                rowData.push(parent.document.getElementById("total_principal_fee"+i).innerText);
+                rowData.push(item["total_principal_fee"]);
+                rowData.push(item["period_tax_rate"]);
                 
-                // 完税比例
-                rowData.push(parent.document.getElementById("period_tax_rate"+i).innerText);
-                
-                // 未完税比例
-                var period_no_tax_rate = parent.document.getElementById("res_period_no_tax_rate"+i).innerText;
+                var period_no_tax_rate = item["res_period_no_tax_rate"];
                 rowData.push(period_no_tax_rate);
                 
-                // 一次性应纳税所得额 = 年金合计金额 - 2013年底税后缴费 - 2014年后税后缴费
-                rowData.push(parent.document.getElementById("taxable_income"+i).innerText);
-                
-                // 一次性应缴纳个人所得税
-                rowData.push(parent.document.getElementById("tax_fee"+i).innerText);
+                rowData.push(item["taxable_income"]);
+                rowData.push(item["tax_fee"]);
                 
                 for(var k=0, m=periodNumList.length; k<m; k++) {
+                    
                     var pay_tax_income = calPayTaxIncomePeroid(annuity_sum, period_no_tax_rate, periodNumList[k]); 
                     
                     var tax_fee = prettify(calTax(pay_tax_income));
@@ -210,11 +285,9 @@ function getDataFromParentPage() {
                     rowData.push(tax_fee);
                     rowData.push(tax_fee_sum);
                 }
-                
-                tableData.push(rowData);
-                
-            }
             
+                tableData.push(rowData);
+            }
             createTableContent();
         }
     }
